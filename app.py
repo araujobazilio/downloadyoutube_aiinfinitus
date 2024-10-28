@@ -68,3 +68,13 @@ if st.button("Baixar Vídeo"):
         baixar_video(url)
     else:
         st.warning("Por favor, insira uma URL válida.")
+
+# Adiciona ícones de redes sociais
+st.markdown("""
+    <div style="text-align: center;">
+        <a href="https://www.instagram.com/aiinfinitus/" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width: 40px; height: 40px; margin: 10px;">
+        </a>
+        <p>Siga Nosso Perfil no Instagram Para Mais Novidades: Ai Infinitus</p>
+    </div>
+""", unsafe_allow_html=True)
