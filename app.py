@@ -38,17 +38,23 @@ def baixar_video(url):
                 video_ext = info_dict.get('ext', None)
                 
                 # Limpa o nome do arquivo
-                video_file = f"{limpar_nome_arquivo(video_title)}.{video_ext}"
+                video_file_name = f"{limpar_nome_arquivo(video_title)}.{video_ext}"
 
-                # Fornece um link para download do arquivo
-                with open(os.path.join(tmp_dir, video_file), "rb") as file:
-                    st.download_button(
-                        label="Clique aqui para baixar o vídeo",
-                        data=file,
-                        file_name=video_file,
-                        mime="video/mp4"
-                    )
-                st.success("Download concluído!")
+                # Verifica o diretório temporário e encontra o arquivo baixado
+                for file in os.listdir(tmp_dir):
+                    if file == video_file_name:
+                        video_path = os.path.join(tmp_dir, file)
+                        # Fornece um link para download do arquivo
+                        with open(video_path, "rb") as file_data:
+                            st.download_button(
+                                label="Clique aqui para baixar o vídeo",
+                                data=file_data,
+                                file_name=video_file_name,
+                                mime="video/mp4"
+                            )
+                        st.success("Download concluído!")
+                        return  # Encerra a função após o download
+            st.error("O arquivo de vídeo não foi encontrado após o download.")
         except Exception as e:
             st.error(f"Ocorreu um erro: {e}")
 
