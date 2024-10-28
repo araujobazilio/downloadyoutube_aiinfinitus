@@ -1,7 +1,8 @@
 import streamlit as st
 import yt_dlp
 import os
-import tempfile  # Biblioteca para criar diretórios temporários
+import tempfile
+import re
 
 # Função para exibir o progresso
 def progresso(status):
@@ -13,6 +14,10 @@ def progresso(status):
         st.session_state.progress_text.text(f"Progresso: {int(percentage)}%")
     if status['status'] == 'finished':
         st.session_state.progress_text.text("Download concluído!")  # Mensagem de conclusão
+
+# Função para limpar o nome do arquivo
+def limpar_nome_arquivo(nome):
+    return re.sub(r'[\\/*?:"<>|]', "", nome)
 
 # Função para baixar o vídeo do YouTube
 def baixar_video(url):
@@ -31,7 +36,9 @@ def baixar_video(url):
                 info_dict = ydl.extract_info(url, download=True)
                 video_title = info_dict.get('title', None)
                 video_ext = info_dict.get('ext', None)
-                video_file = f"{video_title}.{video_ext}"
+                
+                # Limpa o nome do arquivo
+                video_file = f"{limpar_nome_arquivo(video_title)}.{video_ext}"
 
                 # Fornece um link para download do arquivo
                 with open(os.path.join(tmp_dir, video_file), "rb") as file:
