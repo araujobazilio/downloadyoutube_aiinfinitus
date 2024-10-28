@@ -1,72 +1,71 @@
-YouTube Video Downloader
-Este é um aplicativo em Python que permite o download de vídeos do YouTube, utilizando a biblioteca yt-dlp e a interface de usuário do Streamlit. O aplicativo está hospedado no Streamlit Cloud, permitindo que usuários baixem vídeos diretamente no navegador.
+# Downloader de Vídeo do YouTube
 
-Funcionalidades
-Baixa vídeos do YouTube na melhor qualidade disponível.
-Exibe o progresso do download em tempo real.
-Interface de usuário simples, intuitiva e responsiva com Streamlit.
-Fornece um botão de download direto após a conclusão do download.
-Tecnologias Utilizadas
-Python: Linguagem de programação principal.
-Streamlit: Framework para a criação de aplicações web de maneira rápida e interativa.
-yt-dlp: Ferramenta de download para vídeos de sites como YouTube, com suporte para vários formatos.
-Pré-requisitos
-Para executar o projeto localmente, você precisará das seguintes bibliotecas instaladas:
+Este é um aplicativo simples desenvolvido em Python usando Streamlit e yt-dlp, que permite aos usuários baixar vídeos do YouTube diretamente para o seu computador.
 
-bash
-Copy code
-pip install streamlit yt-dlp
-Ou você pode adicionar essas dependências ao seu arquivo requirements.txt para facilitar o deploy no Streamlit Cloud.
+## Funcionalidades
 
-requirements.txt
-plaintext
-Copy code
-streamlit
-yt-dlp
-Como Executar o Projeto Localmente
-Clone este repositório:
+- **Download de Vídeos**: Insira a URL de um vídeo do YouTube e baixe-o diretamente.
+- **Barra de Progresso**: Visualize o progresso do download em tempo real com uma barra de progresso que vai de 0% a 100%.
+- **Link de Download**: Após o download, um link é fornecido para que o usuário possa baixar o vídeo.
 
-bash
-Copy code
-git clone https://github.com/seu_usuario/nome_do_repositorio.git
-Acesse o diretório do projeto:
+## Pré-requisitos
 
-bash
-Copy code
-cd nome_do_repositorio
-Instale as dependências:
+Antes de executar o aplicativo, você precisa ter o Python instalado em seu sistema. Você também precisará instalar as bibliotecas necessárias.
 
-bash
-Copy code
-pip install -r requirements.txt
-Execute o aplicativo com o Streamlit:
+### Instalação do Python
 
-bash
-Copy code
-streamlit run app.py
-Abra seu navegador e acesse http://localhost:8501 para visualizar a aplicação.
+Você pode baixar o Python em [python.org](https://www.python.org/downloads/).
 
-Deploy no Streamlit Cloud
-Este projeto pode ser facilmente hospedado no Streamlit Cloud. Siga estas etapas para o deploy:
+### Instalação das Dependências
 
-Acesse Streamlit Cloud e faça login.
-Crie um novo aplicativo e conecte-o ao repositório do GitHub onde este projeto está armazenado.
-Certifique-se de que o arquivo requirements.txt está incluído para que as dependências sejam instaladas automaticamente.
-Configure as variáveis e finalize o deploy. Seu aplicativo estará pronto para uso online!
-Como Usar
-Insira o link do vídeo do YouTube no campo de entrada.
-Clique em "Baixar Vídeo".
-Acompanhe o progresso do download na barra de progresso.
-Após o download ser concluído, clique no botão de download para baixar o arquivo diretamente para o seu dispositivo.
-Estrutura do Projeto
-plaintext
-Copy code
-.
-├── app.py               # Código principal do aplicativo
-├── requirements.txt     # Lista de dependências do projeto
-└── README.md            # Documentação do projeto
-Observações
-Diretório Temporário: No Streamlit Cloud, o arquivo é salvo em um diretório temporário e está disponível para download somente durante a sessão ativa do usuário. O arquivo será apagado após a sessão ser encerrada.
-Limitações de Download: Este aplicativo está destinado ao uso pessoal e educativo. Respeite os direitos autorais e a política de uso do YouTube ao baixar conteúdos.
-Contribuição
-Sinta-se à vontade para contribuir com melhorias e novas funcionalidades. Faça um fork deste repositório, crie uma nova branch para sua funcionalidade e envie um pull request. Todas as contribuições são bem-vindas!
+1. Clone este repositório ou baixe o código-fonte.
+2. Navegue até o diretório do projeto no terminal.
+3. Crie um ambiente virtual (opcional, mas recomendado):
+
+   ```bash
+   python -m venv venv
+   ```
+
+4. Ative o ambiente virtual:
+
+   - **Windows**:
+     ```bash
+     venv\Scripts\activate
+     ```
+   - **macOS/Linux**:
+     ```bash
+     source venv/bin/activate
+     ```
+
+5. Instale as dependências necessárias:
+
+   ```bash
+   pip install streamlit yt-dlp
+   ```
+
+## Como Executar o Aplicativo
+
+1. No terminal, navegue até o diretório onde o arquivo `app.py` está localizado.
+2. Execute o seguinte comando:
+
+   ```bash
+   streamlit run app.py
+   ```
+
+3. O aplicativo será iniciado e você poderá acessá-lo no seu navegador em `http://localhost:8501`.
+
+## Como Usar
+
+1. Abra o aplicativo no seu navegador.
+2. Insira a URL do vídeo do YouTube que deseja baixar.
+3. Clique no botão "Baixar Vídeo".
+4. Acompanhe o progresso do download na barra de progresso.
+5. Após a conclusão, um botão será exibido para baixar o vídeo.
+
+## Contribuições
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir um problema ou enviar um pull request.
+
+## Licença
+
+Este projeto está licenciado sob a MIT License - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
