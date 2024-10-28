@@ -1,6 +1,7 @@
 import streamlit as st
 import yt_dlp
 import os
+import tempfile
 
 # Função para exibir o progresso
 def progresso(status):
@@ -15,22 +16,26 @@ def progresso(status):
 
 # Função para baixar o vídeo do YouTube
 def baixar_video(url):
-    # Obtém o diretório de Downloads do usuário
-    diretorio = os.path.join(os.path.expanduser("~"), "Downloads")
+    # Cria um diretório temporário
+    with tempfile.TemporaryDirectory() as tmpdirname:
+        # Define o caminho do arquivo de saída
+        output_path = os.path.join(tmpdirname, "%(title)s.%(ext)s")
 
-    st.write(f"Diretório selecionado: {diretorio}")
-
-    ydl_opts = {
-        'format': 'best',
-        'outtmpl': f'{diretorio}/%(title)s.%(ext)s',
-        'progress_hooks': [progresso],  # Atualiza o progresso
-    }
-    try:
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            st.write("Iniciando o download...")
-            ydl.download([url])
-    except Exception as e:
-        st.error(f"Ocorreu um erro: {e}")
+        ydl_opts = {
+            'format': 'best',
+            'outtmpl': output_path,
+            'progress_hooks': [progresso],  # Atualiza o progresso
+        }
+        try:
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                st.write("Iniciando o download...")
+                ydl.download([url])
+                # Após o download, gere um link para o arquivo
+                for file in os.listdir(tmpdirname):
+                    st.success("Download concluído!")
+                    st.markdown(f"[Clique aqui para baixar o vídeo]({os.path.join(tmpdirname, file)})")
+        except Exception as e:
+            st.error(f"Ocorreu um erro: {e}")
 
 # Interface do Streamlit
 st.title("Downloader de Vídeo do YouTube")
@@ -51,3 +56,4 @@ if st.button("Baixar Vídeo"):
         baixar_video(url)
     else:
         st.warning("Por favor, insira uma URL válida.")
+
