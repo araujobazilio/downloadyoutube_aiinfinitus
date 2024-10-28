@@ -33,7 +33,9 @@ def baixar_video(url):
                 # Após o download, gere um link para o arquivo
                 for file in os.listdir(tmpdirname):
                     st.success("Download concluído!")
-                    st.markdown(f"[Clique aqui para baixar o vídeo]({os.path.join(tmpdirname, file)})")
+                    # Gera um link clicável
+                    file_path = os.path.join(tmpdirname, file)
+                    st.markdown(f"[Clique aqui para baixar o vídeo]({file_path})", unsafe_allow_html=True)
         except Exception as e:
             st.error(f"Ocorreu um erro: {e}")
 
@@ -56,4 +58,3 @@ if st.button("Baixar Vídeo"):
         baixar_video(url)
     else:
         st.warning("Por favor, insira uma URL válida.")
-
