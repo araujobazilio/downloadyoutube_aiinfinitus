@@ -2,7 +2,6 @@ import streamlit as st
 import yt_dlp
 import os
 import tempfile
-import re
 
 # Função para exibir o progresso
 def progresso(status):
@@ -14,10 +13,6 @@ def progresso(status):
         st.session_state.progress_text.text(f"Progresso: {int(percentage)}%")
     if status['status'] == 'finished':
         st.session_state.progress_text.text("Download concluído!")  # Mensagem de conclusão
-
-# Função para limpar o nome do arquivo
-def limpar_nome_arquivo(nome):
-    return re.sub(r'[\\/*?:"<>|]', "", nome)
 
 # Função para baixar o vídeo do YouTube
 def baixar_video(url):
@@ -33,28 +28,24 @@ def baixar_video(url):
         try:
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 st.write("Iniciando o download...")
-                info_dict = ydl.extract_info(url, download=True)
-                video_title = info_dict.get('title', None)
-                video_ext = info_dict.get('ext', None)
+                ydl.download([url])
                 
-                # Limpa o nome do arquivo
-                video_file_name = f"{limpar_nome_arquivo(video_title)}.{video_ext}"
-
-                # Verifica o diretório temporário e encontra o arquivo baixado
-                for file in os.listdir(tmp_dir):
-                    if file == video_file_name:
-                        video_path = os.path.join(tmp_dir, file)
-                        # Fornece um link para download do arquivo
-                        with open(video_path, "rb") as file_data:
-                            st.download_button(
-                                label="Clique aqui para baixar o vídeo",
-                                data=file_data,
-                                file_name=video_file_name,
-                                mime="video/mp4"
-                            )
-                        st.success("Download concluído!")
-                        return  # Encerra a função após o download
-            st.error("O arquivo de vídeo não foi encontrado após o download.")
+                # Listar todos os arquivos no diretório temporário
+                arquivos_baixados = os.listdir(tmp_dir)
+                if arquivos_baixados:
+                    video_path = os.path.join(tmp_dir, arquivos_baixados[0])
+                    
+                    # Fornece um link para download do arquivo
+                    with open(video_path, "rb") as file_data:
+                        st.download_button(
+                            label="Clique aqui para baixar o vídeo",
+                            data=file_data,
+                            file_name=arquivos_baixados[0],
+                            mime="video/mp4"
+                        )
+                    st.success("Download concluído!")
+                else:
+                    st.error("O arquivo de vídeo não foi encontrado após o download.")
         except Exception as e:
             st.error(f"Ocorreu um erro: {e}")
 
